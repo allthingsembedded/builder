@@ -1,24 +1,12 @@
 
-name: AllThingsEmbedded Builder main
+name: AllThingsEmbedded Builder release
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  release:
+    types: [published]
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - uses: hadolint/hadolint-action@v1.5.0
-      with:
-        dockerfile: Dockerfile
-        failure-threshold: info
-
-  build_and_push:
+  push_to_docker_hub:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -40,6 +28,6 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        push: ${{ github.event_name != 'pull_request' }}
+        push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
