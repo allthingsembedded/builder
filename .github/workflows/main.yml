@@ -13,10 +13,13 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - uses: hadolint/hadolint-action@v1.5.0
+    - name: hadolint
+      uses: hadolint/hadolint-action@v1.5.0
       with:
         dockerfile: Dockerfile
         failure-threshold: info
+    - name: shellcheck
+      uses: ludeeus/action-shellcheck@master
 
   build_and_push:
     runs-on: ubuntu-latest
