@@ -34,3 +34,7 @@ RUN /iwyu.sh
 ENV PATH="${PATH}:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin"
 ENV PATH="${PATH}:/opt/include-what-you-use/build/bin"
 ENV PATH="${PATH}:/opt/include-what-you-use"
+
+# Alias clang and clang++ to clang-12 and clang++-12
+RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-12 100 && \
+    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-12 100
