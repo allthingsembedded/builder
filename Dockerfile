@@ -44,5 +44,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
-    libusb-1.0-0-dev libftdi1-dev libudev-dev && \
+    libusb-1.0-0-dev="2:1.0.23*" \
+    libftdi1-dev="1.4*" \
+    libudev-dev="245.4*" && \
     rm -rf /var/lib/apt/lists/*
