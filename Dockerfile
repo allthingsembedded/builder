@@ -38,3 +38,11 @@ ENV PATH="${PATH}:/opt/include-what-you-use"
 # Alias clang and clang++ to clang-12 and clang++-12
 RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-12 100 && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-12 100
+
+# Install Cargo and Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+RUN apt-get update && \
+    DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
+    libusb-1.0-0-dev libftdi1-dev libudev-dev && \
+    rm -rf /var/lib/apt/lists/*
