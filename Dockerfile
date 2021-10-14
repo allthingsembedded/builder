@@ -41,6 +41,7 @@ RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-12 100 && 
 
 # Install Cargo and Rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="${PATH}:/root/.cargo/bin"
 
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
