@@ -40,8 +40,11 @@ RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-12 100 && 
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-12 100
 
 # Install Cargo and Rust
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-ENV PATH="${PATH}:/root/.cargo/bin"
+ENV RUSTUP_HOME="/opt/rustup/"
+ENV CARGO_HOME="${RUSTUP_HOME}/.cargo"
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
+    chmod a+rxw -R /opt/rustup
+ENV PATH="${PATH}:${CARGO_HOME}/bin"
 
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
